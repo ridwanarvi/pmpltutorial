@@ -26,6 +26,27 @@ class ItemModelTest(TestCase):
         self.assertEqual(second_saved_item.text, 'Item the second')
 class HomePageTest(TestCase):
 
+   def test_home_page_displays_comment_correctly(self):
+       request = HttpRequest()
+       response = home_page(request)
+       count = Item.objects.count()
+       comment = self.browser.find_element_by_id('komentar')
+       
+       if count == 0:
+           self.assertEqual(
+                   comment.text,
+                   'yey, waktunya berlibur'
+           )
+       elif count < 5:
+           self.assertEqual(
+                   comment.text,
+                   'sibuk tapi santai'
+           )
+       else :
+           self.assertEqual(
+                   comment.text,
+                   'oh tidak'
+           )
    def test_home_page_displays_all_list_items(self):
         Item.objects.create(text='itemey 1')
         Item.objects.create(text='itemey 2')

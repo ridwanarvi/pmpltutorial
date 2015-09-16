@@ -32,7 +32,11 @@ class NewVisitorTest(unittest.TestCase):
                inputbox.get_attribute('placeholder'),
                'Enter a to-do item'
        )
-
+       comment = self.browser.find_element_by_id('komentar')
+       self.assertEqual(
+               comment.text,
+               'yey, waktunya berlibur'
+       )
        # She types "Buy peacock feathers" into a text box (Edith's hobby
        # is tying fly-fishing lures)
        inputbox.send_keys('Buy peacock feathers')
@@ -40,7 +44,15 @@ class NewVisitorTest(unittest.TestCase):
        # When she hits enter, the page updates, and now the page lists
        # "1: Buy peacock feathers" as an item in a to-do list table
        inputbox.send_keys(Keys.ENTER)
+       
+       comment = self.browser.find_element_by_id('komentar')
+       
        self.check_for_row_in_list_table('1: Buy peacock feathers')
+       
+       self.assertEqual(
+               comment.text,
+               'sibuk tapi santai'
+       )
        
        # There is still a text box inviting her to add another item. She
        # enters "Use peacock feathers to make a fly" (Edith is very
@@ -50,13 +62,75 @@ class NewVisitorTest(unittest.TestCase):
        inputbox.send_keys(Keys.ENTER)
 
        # The page updates again, and now shows both items on her list
+       comment = self.browser.find_element_by_id('komentar')
+       
        self.check_for_row_in_list_table('1: Buy peacock feathers')
        self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')       
 
+       self.assertEqual(
+               comment.text,
+               'sibuk tapi santai'
+       )
+       
+       inputbox = self.browser.find_element_by_id('id_new_item')
+       inputbox.send_keys('a')
+       inputbox.send_keys(Keys.ENTER)
+
+       # The page updates again, and now shows both items on her list
+       comment = self.browser.find_element_by_id('komentar')
+       
+       self.check_for_row_in_list_table('1: Buy peacock feathers')
+       self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')       
+       self.check_for_row_in_list_table('3: a')       
+
+       self.assertEqual(
+               comment.text,
+               'sibuk tapi santai'
+       )
+       
+       inputbox = self.browser.find_element_by_id('id_new_item')
+       inputbox.send_keys('a')
+       inputbox.send_keys(Keys.ENTER)
+
+       # The page updates again, and now shows both items on her list
+       comment = self.browser.find_element_by_id('komentar')
+       
+       self.check_for_row_in_list_table('1: Buy peacock feathers')
+       self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')       
+       self.check_for_row_in_list_table('3: a')   
+       self.check_for_row_in_list_table('4: a')       
+           
+
+       self.assertEqual(
+               comment.text,
+               'sibuk tapi santai'
+       )
+       
+       inputbox = self.browser.find_element_by_id('id_new_item')
+       inputbox.send_keys('a')
+       inputbox.send_keys(Keys.ENTER)
+
+       # The page updates again, and now shows both items on her list
+       comment = self.browser.find_element_by_id('komentar')
+       
+       self.check_for_row_in_list_table('1: Buy peacock feathers')
+       self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')       
+       self.check_for_row_in_list_table('3: a')  
+       self.check_for_row_in_list_table('4: a')            
+       self.check_for_row_in_list_table('5: a')       
+
+       self.assertEqual(
+               comment.text,
+               'oh tidak'
+       )
+       
+       
+       
        # Edith wonders whether the site will remember her list. Then she sees
        # that the site has generated a unique URL for her -- there is some
        # explanatory text to that effect.
-       self.fail('Finish the test!')
+       
+       #self.fail('Finish the test!')
 
       # She visits that URL - her to-do list is still there.
 
