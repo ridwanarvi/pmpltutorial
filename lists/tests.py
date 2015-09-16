@@ -31,12 +31,27 @@ class HomePageTest(TestCase):
        response = home_page(request)
        count = Item.objects.count()
        
-       if count == 0:
-           self.assertIn('yey, waktunya berlibur', response.content.decode())
-       elif count < 5:
-           self.assertIn('sibuk tapi santai', response.content.decode())
-       else :
-           self.assertIn('oh tidak', response.content.decode())
+       self.assertIn('yey, waktunya berlibur', response.content.decode())
+       
+       Item.objects.create(text='item')
+       response = home_page(request)
+       self.assertIn('sibuk tapi santai', response.content.decode())
+       
+       Item.objects.create(text='item')
+       response = home_page(request)
+       self.assertIn('sibuk tapi santai', response.content.decode())
+       
+       Item.objects.create(text='item')
+       response = home_page(request)
+       self.assertIn('sibuk tapi santai', response.content.decode())
+       
+       Item.objects.create(text='item')
+       response = home_page(request)
+       self.assertIn('sibuk tapi santai', response.content.decode())
+       
+       Item.objects.create(text='item')
+       response = home_page(request)
+       self.assertIn('oh tidak', response.content.decode())
            
    def test_home_page_displays_all_list_items(self):
         Item.objects.create(text='itemey 1')
