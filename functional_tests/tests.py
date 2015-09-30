@@ -32,7 +32,6 @@ class NewVisitorTest(LiveServerTestCase):
                inputbox.get_attribute('placeholder'),
                'Enter a to-do item'
        )
-       comment = self.browser.find_element_by_id('komentar')
 
 
        # She types "Buy peacock feathers" into a text box (Edith's hobby
@@ -44,7 +43,6 @@ class NewVisitorTest(LiveServerTestCase):
        # "1: Buy peacock feathers" as an item in a to-do list table
        inputbox.send_keys(Keys.ENTER)
        
-       comment = self.browser.find_element_by_id('komentar')
        
        self.check_for_row_in_list_table('1: Buy peacock feathers')
        
@@ -57,7 +55,6 @@ class NewVisitorTest(LiveServerTestCase):
        inputbox.send_keys(Keys.ENTER)
 
        # The page updates again, and now shows both items on her list
-       comment = self.browser.find_element_by_id('komentar')
        
        self.check_for_row_in_list_table('1: Buy peacock feathers')
        self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')       
