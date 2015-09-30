@@ -26,33 +26,35 @@ class ItemModelTest(TestCase):
         self.assertEqual(second_saved_item.text, 'Item the second')
 class HomePageTest(TestCase):
 
-   def test_home_page_displays_comment_correctly(self):
+   def test_home_page_displays_comment_berlibur(self):
        request = HttpRequest()
        response = home_page(request)
-       count = Item.objects.count()
        
        self.assertIn('yey, waktunya berlibur', response.content.decode())
+
+   def test_home_page_displays_comment_santai(self):
+       request = HttpRequest()
        
        Item.objects.create(text='item')
+       
        response = home_page(request)
        self.assertIn('sibuk tapi santai', response.content.decode())
+
+
+       
+   def test_home_page_displays_comment_tidak(self):
+       request = HttpRequest()
        
        Item.objects.create(text='item')
-       response = home_page(request)
-       self.assertIn('sibuk tapi santai', response.content.decode())
-       
        Item.objects.create(text='item')
-       response = home_page(request)
-       self.assertIn('sibuk tapi santai', response.content.decode())
-       
        Item.objects.create(text='item')
-       response = home_page(request)
-       self.assertIn('sibuk tapi santai', response.content.decode())
-       
        Item.objects.create(text='item')
+       Item.objects.create(text='item')
+       
        response = home_page(request)
        self.assertIn('oh tidak', response.content.decode())
-           
+
+       
    def test_home_page_displays_all_list_items(self):
         Item.objects.create(text='itemey 1')
         Item.objects.create(text='itemey 2')
