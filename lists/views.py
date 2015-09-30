@@ -11,7 +11,17 @@ def home_page(request):
     
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
-    return render(request, 'list.html', {'list': list_})
+    items = Item.objects.filter(list=list_)
+    counter = items.count()
+    status = "oh tidak"
+    if counter == 0:
+        status = "yey, waktunya berlibur"
+    elif counter < 5:
+        status = "sibuk tapi santai"
+    else:
+        status = "oh tidak"
+    
+    return render(request, 'list.html', {'status':status,'list': list_})
     
 def new_list(request):
     list_ = List.objects.create()

@@ -129,3 +129,31 @@ class HomePageTest(TestCase):
       response = home_page(request)
       expected_html = render_to_string('home.html')
       self.assertEqual(response.content.decode(), expected_html)
+
+
+   def test_home_page_displays_comment_santai(self):
+       list_ = List.objects.create()
+       Item.objects.create(text='item' , list = list_)
+       request = HttpRequest()
+       
+       response = self.client.get('/lists/%d/' %(list_.id,))
+       self.assertIn('sibuk tapi santai', response.content.decode())
+
+
+       
+   def test_home_page_displays_comment_tidak(self):
+       list_ = List.objects.create()
+       
+       Item.objects.create(text='item', list = list_)
+       Item.objects.create(text='item', list = list_)
+       Item.objects.create(text='item', list = list_)
+       Item.objects.create(text='item', list = list_)
+       Item.objects.create(text='item', list = list_)
+       request = HttpRequest()
+       
+       response = self.client.get('/lists/%d/' %(list_.id,))
+       self.assertIn('oh tidak', response.content.decode())
+
+
+
+   
