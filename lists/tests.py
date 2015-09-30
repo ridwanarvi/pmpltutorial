@@ -41,36 +41,6 @@ class ItemModelTest(TestCase):
         self.assertEqual(second_saved_item.text, 'Item the second')
 class HomePageTest(TestCase):
 
-   def test_home_page_displays_comment_berlibur(self):
-       request = HttpRequest()
-       response = home_page(request)
-       
-       self.assertIn('yey, waktunya berlibur', response.content.decode())
-
-   def test_home_page_displays_comment_santai(self):
-       request = HttpRequest()
-       
-       Item.objects.create(text='item')
-       
-       response = home_page(request)
-       self.assertIn('sibuk tapi santai', response.content.decode())
-
-
-       
-   def test_home_page_displays_comment_tidak(self):
-       request = HttpRequest()
-       
-       Item.objects.create(text='item')
-       Item.objects.create(text='item')
-       Item.objects.create(text='item')
-       Item.objects.create(text='item')
-       Item.objects.create(text='item')
-       
-       response = home_page(request)
-       self.assertIn('oh tidak', response.content.decode())
-
-
-
    def test_home_page_redirects_after_POST(self):
        request = HttpRequest()
        request.method = 'POST'
@@ -112,4 +82,4 @@ class HomePageTest(TestCase):
        self.assertEqual(new_item.text, 'A new list item')
 
        self.assertEqual(response.status_code, 302)
-       self.assertEqual(response['location'], '/')
+       self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
