@@ -37,11 +37,13 @@ class NewVisitorTest(LiveServerTestCase):
        # She types "Buy peacock feathers" into a text box (Edith's hobby
        # is tying fly-fishing lures)
        inputbox.send_keys('Buy peacock feathers')
+       inputbox.send_keys(Keys.ENTER)
+       
+       
        edith_list_url = self.browser.current_url
        self.assertRegex(edith_list_url, '/lists/.+') #1
        # When she hits enter, the page updates, and now the page lists
        # "1: Buy peacock feathers" as an item in a to-do list table
-       inputbox.send_keys(Keys.ENTER)
        
        
        self.check_for_row_in_list_table('1: Buy peacock feathers')

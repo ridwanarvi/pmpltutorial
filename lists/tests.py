@@ -34,18 +34,8 @@ class ListViewTest(TestCase):
         self.assertContains(response, 'itemey 2')
         self.assertNotContains(response, 'other list item 1')
         self.assertNotContains(response, 'other list item 2')
-
-    def test_displays_all_items(self):
-        list_ = List.objects.create()
-        Item.objects.create(text='itemey 1', list=list_)
-        Item.objects.create(text='itemey 2', list=list_)
-
-        response = self.client.get('/lists/the-only-list-in-the-world/') #1
-
-        self.assertContains(response, 'itemey 1') #2
-        self.assertContains(response, 'itemey 2') #3
    
-class NewListTest(TestCase):
+class NewItemTest(TestCase):
 
 
     def test_can_save_a_POST_request_to_an_existing_list(self):
@@ -73,6 +63,8 @@ class NewListTest(TestCase):
            )
 
            self.assertRedirects(response, '/lists/%d/' % (correct_list.id,))
+class NewListTest(TestCase):
+
     def test_saving_a_POST_request(self):
            self.client.post(
                '/lists/new',
@@ -135,8 +127,5 @@ class HomePageTest(TestCase):
    def test_home_page_returns_correct_html(self):
       request = HttpRequest()
       response = home_page(request)
-      #expected_html = render_to_string('home.html')
-      #self.assertEqual(response.content.decode(), expected_html)
-      self.assertTrue(response.content.startswith(b'<html>'))
-      self.assertIn(b'<title>To-Do lists</title>', response.content)
-      self.assertTrue(response.content.strip().endswith(b'</html>'))
+      expected_html = render_to_string('home.html')
+      self.assertEqual(response.content.decode(), expected_html)
