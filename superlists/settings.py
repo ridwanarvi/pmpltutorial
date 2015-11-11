@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vvnk_c+hal2w*chxoy-6$!2%pqn2mn3%n&*y5ow)9zf%#rd$8@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+TEMPLATE_DEBUG = DEBUG
+
+ALLOWED_HOSTS = ['pmpl-ridwanarvi.cloudapp.net']
 
 
 # Application definition
