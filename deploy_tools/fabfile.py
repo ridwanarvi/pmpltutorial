@@ -2,7 +2,7 @@ from fabric.contrib.files import append, exists, sed
 from fabric.api import env, local, run
 import random
 
-REPO_URL = 'https://github.com/hjwp/book-example.git'
+REPO_URL = 'https://github.com/ridwanarvi/pmpltutorial.git'
 
 def deploy():
     site_folder = '/home/%s/sites/%s' % (env.user, env.host)
@@ -23,7 +23,7 @@ def _get_latest_source(source_folder):
         run('cd %s && sudo git fetch' % (source_folder,))  
     else:
         run('sudo git clone %s %s' % (REPO_URL, source_folder))
-    current_commit = local("sudo git log -n 1 --format=%H", capture=True)
+    current_commit = local("git log -n 1 --format=%H", capture=True)
     run('cd %s && sudo git reset --hard %s' % (source_folder, current_commit))
 
 def _update_settings(source_folder, site_name):
