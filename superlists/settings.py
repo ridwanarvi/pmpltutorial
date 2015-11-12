@@ -27,7 +27,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['pmpl-ridwanarvi.cloudapp.net']
+ALLOWED_HOSTS = ['pmpl-ridwanarvi.cloudapp.net','localhost']
 
 
 # Application definition
